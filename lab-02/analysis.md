@@ -4,27 +4,27 @@ Decision Table Testing applied to the `is_eligible_for_loan` function.
 ## 1. Equivalence Partitioning (EP)
 Identify valid and invalid equivalence classes for each input parameter.
 ### Age
-| Equivalence Class | Description | Representative Value |
-|-------------------|-------------|----------------------|
-| Valid (18-65) | Ages within the eligible range | `40` |
-| Invalid (<18) | Ages below the minimum | `10` |
-| Invalid (>65) | Ages above the maximum | `70` |
+| Equivalence Class | Description | Representative Value | Result |
+|-------------------|-------------|----------------------| ----------------|
+| Valid (18-65) | Ages within the eligible range | `40` | Pass |
+| Invalid (<18) | Ages below the minimum | `10` | Fail |
+| Invalid (>65) | Ages above the maximum | `70` | Fail |
 
 ### Income
-| Equivalence Class | Description | Representative Value |
-|-------------------|-------------|----------------------|
-| Valid (>=30000) | Incomes at or above minimum | `50000` |
-| Invalid (<30000) | Incomes below minimum | `20000` |
+| Equivalence Class | Description | Representative Value | Result |
+|-------------------|-------------|----------------------| ----------------|
+| Valid (>=30000) | Incomes at or above minimum | `50000` | Pass |
+| Invalid (<30000) | Incomes below minimum | `20000` |  Fail |
 ### Credit Score
-| Equivalence Class | Description | Representative Value |
-|-------------------|-------------|----------------------|
-| Valid (300-850) | Scores within eligible range | `600` |
-| Invalid (<300) | Scores below minimum | `250` |
-| Invalid (>850) | Scores above maximum | `900` |
+| Equivalence Class | Description | Representative Value |  Result |
+|-------------------|-------------|----------------------|  ----------------|
+| Valid (300-850) | Scores within eligible range | `600` |  Pass |
+| Invalid (<300) | Scores below minimum | `250` |   Fail |
+| Invalid (>850) | Scores above maximum | `900` |   Fail |
 ## 2. Boundary Value Analysis (BVA)
 Identify boundary values for each numerical input parameter.
 ### Age
-| Boundary Value | Description | Expected Outcome |
+| Boundary Value | Description | Expected Outcome | 
 |----------------|-------------|------------------|
 | `17` | Min - 1 | Ineligible |
 | `18` | Min | Eligible |
