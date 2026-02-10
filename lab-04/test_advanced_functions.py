@@ -20,8 +20,15 @@ class TestReverseStringProperties(unittest.TestCase):
         """Property: Reversing a string twice returns the original string."""
         result = reverse_string(reverse_string(text))
         # Assert that reversing twice gives the original string
+        self.assertEqual(result, text) 
 
     # Test 2: Length unchanged after reversing
+    @given(st.text())
+    def test_length_unchanged(self, text):
+        """Property: Length remains the same after reversing."""
+        result = reverse_string(text)
+        self.assertEqual(len(result), len(text))
+
 
     # Test 3: First character becomes last character
     @given(st.text())
@@ -30,8 +37,9 @@ class TestReverseStringProperties(unittest.TestCase):
         assume(text) # Ensure string is not empty
         result = reverse_string(text)
         # Assert that first character of original becomes last in reversed string
-
+        self.assertEqual(result[-1], text[0])
         # Assert that last character of original becomes first in reversed string
+        self.assertEqual(result[0], text[-1])
 
     pass
 
@@ -66,6 +74,7 @@ class TestProcessUserLogin(unittest.TestCase):
         mock_notification = Mock()
 
         # Configure mock to return None (user not found) None
+        mock_db.get_user.return_value = None
 
         # Call the function
         result = process_user_login(999, mock_db, mock_notification)
@@ -88,10 +97,13 @@ class TestProcessUserLogin(unittest.TestCase):
         mock_db.get_user.return_value = expected_user
 
         # Call the function
+        result = process_user_login(42, mock_db, mock_notification)
 
         # Assert EQuality of returned user data
+        self.assertEqual(result, expected_user)
 
         # Verify get_user was called with correct user_id
+        mock_db.get_user.assert_called_once_with(42)
 
         pass
 
@@ -135,21 +147,26 @@ class TestGetWeatherReport(unittest.TestCase):
         result = get_weather_report('InvalidCity')
 
         # Assert that result contains error message
+        self.assertEqual(result, {'error': 'City not found'})
 
         # Verify requests.get was called with correct URL
+        mock_get.assert_called_once_with('https://api.weather.com/data/InvalidCity')
 
     # Test 3: Network exception handling
     @patch('advanced_functions.requests.get')
     def test_network_exception(self, mock_get):
         """Test handling of network exceptions."""
         # Configure mock to raise an exception
-        mock_get.side_eiect = Exception('Network error')
+        mock_get.side_effect = Exception('Network error')
 
         # Call the function
+        result = get_weather_report('Bangkok')
 
         # Assert that result contains error message
+        self.assertEqual(result, {'error': 'Network error'})
 
         # Verify requests.get was called with correct URL
+        mock_get.assert_called_once_with('https://api.weather.com/data/Bangkok')
 
         pass
 
