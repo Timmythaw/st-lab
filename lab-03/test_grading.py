@@ -1,3 +1,6 @@
+"""
+Lab 03: Unit Tests Grading Tests
+"""
 import unittest
 from grading import calculate_grade, validate_password
 
@@ -65,6 +68,7 @@ class TestPasswordValidation(unittest.TestCase):
     def test_password_no_uppercase(self):
         """Password missing uppercase letter"""
         is_valid, message = validate_password("noupper1")
+        self.assertFalse(is_valid)
         self.assertEqual(message, "Must contain uppercase")
     
     def test_password_multiple_failures(self):
